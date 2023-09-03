@@ -1,4 +1,6 @@
 from shopping_cart import ShoppingCart
+from item_database import ItemDatabase
+from unittest.mock import Mock
 import pytest
 
 @pytest.fixture
@@ -23,7 +25,13 @@ def test_add_more_than_max_items_should_fail(cart):
 def test_get_total_price(cart):
 	cart.add("apple")
 	cart.add("orange")
+	item_database = ItemDatabase()
 
-	price_map = {"apple": 1.0, "orange": 2.0}
-
-	assert cart.get_total_price(price_map) == 3.0
+	def mock_get_item(item: str):
+		if item == "apple":
+			return 1.0
+		if item == "orange":
+			return 2.0
+		
+	item_database.get = Mock(side_effect=mock_get_item)
+	assert cart.get_total_price(item_database) == 3.0
