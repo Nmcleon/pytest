@@ -2,17 +2,17 @@ from typing import List
 
 
 class ShoppingCart:
-    def __init__(self, max_size: int) -> None:
-       pass
+    def __init__(self) -> None:
+       self.items: list[str] = []
 
     def add(self, item: str):
-        pass
+        self.items.append(item)
 
     def size(self) -> int:
-        return 0
+        return len(self.items)
 
     def get_items(self) -> List[str]:
-        pass
+        return self.items
 
     def get_total_price(self, price_map):
         pass
